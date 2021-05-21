@@ -24,7 +24,7 @@ const login = function(event) {
 
 const addMessage = function(author, content) {
   const message = document.createElement('li');
-  message.classList.add('messsage', 'message--received');
+  message.classList.add('message', 'message--received');
   
   if(author === userName) {
     message.classList.add('message--self');
