@@ -1,5 +1,8 @@
 'use strict';
 
+const socket = io();
+socket.on('message', ({author, content}) => addMessage(author, content));
+
 const loginForm = document.getElementById('welcome-form');
 const messagesSection = document.getElementById('messages-section');
 const messagesList = document.getElementById('messages-list');
@@ -41,8 +44,11 @@ const addMessage = function(author, content) {
 const sendMessage = function(event) {
   event.preventDefault();
 
-  if(messageContentInput.value) {
-    addMessage(userName, messageContentInput.value);
+  let messageContent = messageContentInput.value;
+
+  if(messageContent) {
+    addMessage(userName, messageContent);
+    socket.emit('message', { author: userName, content: messageContent })
     messageContentInput.value = '';
   }
   else {
